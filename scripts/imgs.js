@@ -5,16 +5,24 @@
 
         for (i = line; i<line+lines; i+=3){
             const rp = p => "0".repeat(5 - `${i+p}`.length)
+            const extension = [".png", ".jpg"];
+            
+            const ext = extension.find(e => {
+                if (i+2 < limit && ![0, 1, 2].some(p => !e.includes(`./images/${rp(p)}${i+p}${e}`)))
+                    return false
+                return e
+            })
+            
             imgs.innerHTML += `
                 <div class="row">
                     <div class="card">
-                        <img src="./images/${rp(0)}${i}.png" alt="">
+                        <img src="${ext ? `./images/${rp(0)}${i}${ext}` : ''}" alt="">
                     </div>
                     <div class="card">
-                        <img src="./images/${rp(1)}${i+1 < limit ? i+1 : i}.png" alt="">
+                        <img src="${ext ? `./images/${rp(1)}${i+1 < limit ? i+1 : i}${ext}` : ''}" alt="">
                     </div>
                     <div class="card">
-                        <img src="./images/${rp(2)}${i+2 < limit ? i+2 : i}.png" alt="">
+                        <img src="${ext ? `./images/${rp(2)}${i+2 < limit ? i+2 : i}${ext}` : ''}" alt="">
                     </div>
                 </div>
             `
